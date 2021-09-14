@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "325680014067",
+    "project_id": "greenapp-a1638",
+    "storage_bucket": "greenapp-a1638.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325680014067:android:9a04960be792e27b630d86",
+        "android_client_info": {
+          "package_name": "com.example.greenlive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325680014067-hr9hbqqcqlq4velt35gtc2833lfvq17n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greenlive",
+            "certificate_hash": "9eff47013b3e1c808bcd40bc462707fa5e1aba16"
+          }
+        },
+        {
+          "client_id": "325680014067-387ugkrm4n8gan0ue22lfcia8bfei7mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCxQTBROOvyNxnk5F3RO3QfFSOxls7FX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325680014067-387ugkrm4n8gan0ue22lfcia8bfei7mo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
