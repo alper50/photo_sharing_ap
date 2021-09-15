@@ -35,14 +35,14 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       elevation: 0,
       color: Colors.green[400],
-      textTheme: TextTheme(
-        // ignore: deprecated_member_use
-        title: TextStyle(
-          color: Colors.black,
-          fontSize: 21.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      // textTheme: TextTheme(
+      //   // ignore: deprecated_member_use
+      //   title: TextStyle(
+      //     color: Colors.black,
+      //     fontSize: 21.0,
+      //     fontWeight: FontWeight.bold,
+      //   ),
+      // ),
     ),
     tabBarTheme: TabBarTheme(
       indicator: UnderlineTabIndicator(

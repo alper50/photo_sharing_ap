@@ -4,6 +4,7 @@ import 'package:greenlive/presentation/pages/authentication/components/appbar.da
 import 'package:greenlive/presentation/pages/authentication/components/inputfile.dart';
 import 'package:greenlive/presentation/pages/authentication/components/custombutton.dart';
 import 'package:greenlive/presentation/pages/authentication/sign_in/bloc/sign_in_bloc.dart';
+import 'package:greenlive/presentation/pages/authentication/sign_up/bloc/sign_up_bloc.dart';
 
 class SingInView extends StatelessWidget {
   final TextEditingController nickcontroller = TextEditingController();
@@ -24,7 +25,10 @@ class Buildscaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is SignInSucces) {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil("tohome", (route) => false);
+        }
       },
       child: Scaffold(
         appBar: PreferredSize(
@@ -55,12 +59,31 @@ class Buildscaffold extends StatelessWidget {
                   icon: Icons.lock,
                   ispasw: true,
                 ),
-                InkWell(
-                  onTap: (){},
-                  borderRadius: BorderRadius.circular(29),
-                  child: CustomContainer(
-                    child: Text("Giriş Yap"),
-                  ),
+                BlocBuilder<SignInBloc, SignInState>(
+                  builder: (context, state) {
+                    if (state is SignInError) {
+                      return CustomContainer(
+                        child: Text("Bir hata oluştu"),
+                        onpressed: () {
+                          BlocProvider.of<SignInBloc>(context)
+                              .add(TryAgainEvent());
+                        },
+                      );
+                    } else if (state is SignInLoading) {
+                      return CircularProgressIndicator();
+                    } else {
+                      return CustomContainer(
+                        child: Text("Giriş Yap"),
+                        onpressed: () {
+                          BlocProvider.of<SignInBloc>(context).add(
+                            LoginEvent(
+                                nickname: nickcontroller.text,
+                                password: passwcontroller.text),
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
               ],
             ),
