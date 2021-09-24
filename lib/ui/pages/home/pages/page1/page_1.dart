@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:greenlive/core/data/models/postmodel.dart';
 import 'package:greenlive/ui/pages/home/pages/page1/bloc/page1_bloc.dart';
 import 'package:greenlive/ui/pages/home/pages/userprofilepage/userprofilepage.dart';
+import 'package:greenlive/ui/widgets/appbar1.dart';
 import 'package:greenlive/ui/widgets/bottom_loader.dart';
 import 'package:greenlive/ui/widgets/card.dart';
 
@@ -32,22 +33,7 @@ class _Page1State extends State<Page1> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          SliverAppBar(
-            title: Text("Ana Sayfa"),
-            collapsedHeight: 70,
-            toolbarHeight: 70,
-            centerTitle: true,
-            pinned: false,
-            floating: false,
-            snap: false,
-            expandedHeight: 70,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(30),
-                bottomLeft: Radius.circular(30),
-              ),
-            ),
-          ),
+          Appbar1(),
           SliverToBoxAdapter(
             child: Column(
               children: [

@@ -5,6 +5,7 @@ class GroupPageAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       toolbarHeight: 65,
       expandedHeight: 200,
       pinned: true,

@@ -1,15 +1,23 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenlive/core/data/network/post_service.dart';
 import 'package:greenlive/ui/widgets/card2.dart';
 import 'package:image_picker/image_picker.dart';
 
+String text='';
 XFile picked;
-
 class CreateGroup extends StatelessWidget {
   bool isimageselected = false;
+  TextEditingController controller = TextEditingController();
+  PostApiProvider api = PostApiProvider();
 
   @override
   Widget build(BuildContext context) {
+    controller.addListener((){
+      text=controller.text;
+     
+    });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -35,7 +43,7 @@ class CreateGroup extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10.0,
-                    vertical: 30,
+                    vertical: 10,
                   ),
                   child: AutoSizeText(
                     "Yeni bir grup oluştur",
@@ -57,8 +65,9 @@ class CreateGroup extends StatelessWidget {
               ),
               isimageselected
                   ? Card2(
-                    isfromnetwork: false,
-                      imgurl: "${picked.path}",
+                      isfromnetwork: false,
+                      imgurl:
+                          "${picked.path}",
                     )
                   : UnselectedCard(),
               SizedBox(
@@ -66,15 +75,22 @@ class CreateGroup extends StatelessWidget {
               ),
               GestureDetector(
                 child: TextField(
-                  onSubmitted: (String text)=>FocusScope.of(context).unfocus(),
+                 
+                  controller: controller,
+                  onSubmitted: (String text) =>
+                      FocusScope.of(context).unfocus(),
                   maxLines: 1,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey[300],
                     border: UnderlineInputBorder(
-                  borderRadius:BorderRadius.circular(10.0),),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.cancel_rounded,color: Colors.green,),
+                      icon: Icon(
+                        Icons.cancel_rounded,
+                        color: Colors.green,
+                      ),
                       onPressed: () {},
                     ),
                     hintText: "Grup Adı",
@@ -91,7 +107,7 @@ class CreateGroup extends StatelessWidget {
               InkWell(
                 splashColor: Colors.black,
                 borderRadius: BorderRadius.circular(20),
-                onTap: () {},
+                onTap: () =>api.uploadImage(picked.path, 2, text, 70.111, 70.111),
                 child: Container(
                   height: 45,
                   width: double.infinity / 1.5,
@@ -111,6 +127,9 @@ class CreateGroup extends StatelessWidget {
               ),
               AutoSizeText(
                   "Grup oluşturarak hizmet koşullarını kabul etmiş sayılırız"),
+                  SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -121,28 +140,56 @@ class CreateGroup extends StatelessWidget {
 
 class UnselectedCard extends StatelessWidget {
   UnselectedCard({Key key}) : super(key: key);
-  
-  _getImage()async{
-    XFile image = await ImagePicker().pickImage(source: ImageSource.gallery,maxHeight: 480,maxWidth: 640);
-    picked = image;
+  XFile image;
+  _getImage() async {
+    image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, maxHeight: 480, maxWidth: 640);
   }
-// picked imagei yukarıdaki classta card2 ye imgurl olarak paramtere vermeliyiz pathini
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async{
-        XFile picked = await _getImage();
+      onTap: () async {
+        await _getImage();
+        picked=image;
       },
-      child: Container(
-        height: 210,
-        width: double.maxFinite,
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text("Galeriden resim seçin"),
-        ),
+      child: Stack(
+        children: [
+          Container(
+            height: 210,
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text("Galeriden resim seçin"),
+            ),
+          ),
+          Container(
+            height: 210,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
+                0.3,
+                0.9
+              ], colors: [
+                Colors.black.withOpacity(.8),
+                Colors.black.withOpacity(.2)
+              ]),
+            ),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  text,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

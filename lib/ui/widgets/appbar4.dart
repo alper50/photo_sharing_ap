@@ -7,6 +7,7 @@ class CustomAppBar4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
           expandedHeight: 130,
           pinned: true,
           title: Row(
