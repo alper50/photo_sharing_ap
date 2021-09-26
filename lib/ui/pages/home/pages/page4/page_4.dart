@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:greenlive/core/config/util/l10n/l10n.dart';
+import 'package:greenlive/main_bloc/main_bloc.dart';
 import 'package:greenlive/ui/widgets/appbar4.dart';
+import 'package:provider/src/provider.dart';
 
 class Page4 extends StatelessWidget {
   @override
@@ -17,7 +19,7 @@ class Page4 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:8.0),
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Text("Kullancı Ayarları"),
                   ),
                   Card(
@@ -34,7 +36,8 @@ class Page4 extends StatelessWidget {
                           ),
                           title: Text("Hesabım"),
                           trailing: Icon(Icons.keyboard_arrow_right),
-                          onTap: ()=>Navigator.pushNamed(context, 'tomyaccount'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, 'tomyaccount'),
                         ),
                         BuildDivider(),
                         ListTile(
@@ -44,7 +47,8 @@ class Page4 extends StatelessWidget {
                           ),
                           title: Text("Faturalandırma"),
                           trailing: Icon(Icons.keyboard_arrow_right),
-                          onTap: ()=>Navigator.pushNamed(context, 'tobillspage'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, 'tobillspage'),
                         ),
                         BuildDivider(),
                         ListTile(
@@ -54,7 +58,8 @@ class Page4 extends StatelessWidget {
                           ),
                           title: Text("Paylaşımlarım"),
                           trailing: Icon(Icons.keyboard_arrow_right),
-                          onTap: () =>Navigator.pushNamed(context, 'tomypostspage'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, 'tomypostspage'),
                         ),
                       ],
                     ),
@@ -63,7 +68,7 @@ class Page4 extends StatelessWidget {
                     height: 20,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left:8.0),
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Text("Uygulama Ayarları"),
                   ),
                   Card(
@@ -87,7 +92,7 @@ class Page4 extends StatelessWidget {
                             color: Colors.green,
                           ),
                           title: Text("Dil"),
-                          onTap: () {},
+                          onTap: () => _chooselang(context),
                         ),
                       ],
                     ),
@@ -98,6 +103,54 @@ class Page4 extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> _chooselang(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text("Dil seç"),
+            children: L10n.all
+                .map(
+                  (e) => RadioTile(
+                    e: e,
+                    context: context,
+                  ),
+                )
+                .toList(),
+          );
+        });
+  }
+}
+
+class RadioTile extends StatefulWidget {
+  final Locale e;
+  final BuildContext context;
+  RadioTile({Key key, this.e, this.context}) : super(key: key);
+
+  @override
+  State<RadioTile> createState() => _RadioTileState();
+}
+
+class _RadioTileState extends State<RadioTile> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return RadioListTile(
+      selected: selected,
+      value: widget.e.toString(),
+      groupValue: 1,
+      toggleable: true,
+      onChanged: (data) {
+        setState(() {
+          selected = !selected;
+        });
+        context.read<MainBloc>().add(ChangeLanguage(selectedLanguage: widget.e));
+      },
+      title: widget.e.languageCode == 'en' ? Text('English') : Text('Türkçe'),
     );
   }
 }
@@ -115,5 +168,3 @@ class BuildDivider extends StatelessWidget {
     );
   }
 }
-
-

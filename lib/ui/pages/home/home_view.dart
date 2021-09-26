@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenlive/ui/pages/home/bloc/homebase_bloc.dart';
 import 'package:greenlive/ui/pages/home/pages/page1/bloc/page1_bloc.dart';
 import 'package:greenlive/ui/pages/home/pages/page1/page_1.dart';
+import 'package:greenlive/ui/pages/home/pages/page2/bloc/page2_bloc.dart';
 import 'package:greenlive/ui/pages/home/pages/page2/page_2.dart';
 import 'package:greenlive/ui/pages/home/pages/page3/page_3.dart';
 import 'package:greenlive/ui/pages/home/pages/page4/page_4.dart';
@@ -19,10 +20,13 @@ class _HomeViewState extends State<HomeView> {
   int selectedIndex = 1;
   final List<Widget> _children = [
     BlocProvider(
-      create: (context) => Page1Bloc()..add(FetchEvent()),
+      create: (context) => Page1Bloc()..add(Page1FetchEvent()),
       child: Page1(),
     ),
-    Page2(),
+    BlocProvider(
+      create: (context) => Page2Bloc()..add(Page2FetchEvent()),
+      child: Page2(),
+    ),
     Page3(),
     Page4(),
   ];
@@ -42,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
           children: <Widget>[
             BlocBuilder<HomebaseBloc, HomebaseState>(
               builder: (context, state) {
-                if (state is Loading || state is HomebaseInitial) {
+                if (state is Page1LoadingData || state is HomebaseInitial) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is ConnectionFound) {
                   return PageTransitionSwitcher(
@@ -65,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
                   } else {
                     return NoConnection();
                   }
-                }else{
+                } else {
                   return Container();
                 }
               },

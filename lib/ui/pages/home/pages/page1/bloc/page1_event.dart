@@ -7,10 +7,10 @@ abstract class Page1Event extends Equatable {
   List<Object> get props => [];
 }
 class InitialEvent extends Page1Event{}
-class FetchEvent extends Page1Event{
+class Page1FetchEvent extends Page1Event{
   final String category;
 
-  FetchEvent({this.category});
+  Page1FetchEvent({this.category});
   List<Object> get props => [category];
 }
 class FilterEvent extends Page1Event{

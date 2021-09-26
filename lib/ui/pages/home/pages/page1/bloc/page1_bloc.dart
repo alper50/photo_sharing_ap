@@ -33,7 +33,7 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
     Page1Event event,
   ) async* {
     if (state is Page1Initial) {
-      yield LoadingData();
+      yield Page1LoadingData();
       storage = await Storage.getStringList("location");
       if (storage.isEmpty) {
         yield StorageError();
@@ -88,7 +88,7 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
           print(e);
         }
       }else{
-        yield LoadingData();
+        yield Page1LoadingData();
         yield await Future.delayed(Duration(seconds: 1),(){
           return StorageError();
         });

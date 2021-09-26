@@ -6,7 +6,7 @@ abstract class Page2Event extends Equatable {
   @override
   List<Object> get props => [];
 }
-class FetchEvent extends Page2Event{}
+class Page2FetchEvent extends Page2Event{}
 class SearchEvent extends Page2Event{
   final String inputText;
 

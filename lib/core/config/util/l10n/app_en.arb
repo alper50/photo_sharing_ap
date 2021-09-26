@@ -1,0 +1,10 @@
+{
+    "home_page" : "home page",
+    "@home_page":{
+        "description":"home_page"
+    },
+    "turkce" : "Turkish",
+    "@home_page":{
+        "description":"turkish"
+    }
+}

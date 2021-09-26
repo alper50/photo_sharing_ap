@@ -20,11 +20,6 @@ class _Page1State extends State<Page1> {
   Page1Bloc bloc;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     bloc = BlocProvider.of<Page1Bloc>(context);
     _scrollController.addListener(() => _onScroll());
@@ -58,7 +53,7 @@ class _Page1State extends State<Page1> {
                               bloc.filterButton(index);
                             });
                             bloc.add(
-                                FetchEvent(category: bloc.categories[index]));
+                                Page1FetchEvent(category: bloc.categories[index]));
                           },
                           label: Text(bloc.categories[index]),
                           elevation: 5,
@@ -84,7 +79,7 @@ class _Page1State extends State<Page1> {
                                   child: CircularProgressIndicator(
                                 color: Colors.red,
                               )));
-                        } else if (state is LoadingData) {
+                        } else if (state is Page1LoadingData) {
                           return Container(
                               height: 300,
                               child:
@@ -154,7 +149,7 @@ class _Page1State extends State<Page1> {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
       await Future.delayed(Duration(milliseconds: 500), () {
-        bloc.add(FetchEvent(category: "deneme"));
+        bloc.add(Page1FetchEvent(category: "deneme"));
       });
     }
   }

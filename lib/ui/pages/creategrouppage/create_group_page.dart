@@ -5,18 +5,24 @@ import 'package:greenlive/core/data/network/post_service.dart';
 import 'package:greenlive/ui/widgets/card2.dart';
 import 'package:image_picker/image_picker.dart';
 
-String text='';
+String text = '';
 XFile picked;
-class CreateGroup extends StatelessWidget {
+
+class CreateGroup extends StatefulWidget {
+  @override
+  State<CreateGroup> createState() => _CreateGroupState();
+}
+
+class _CreateGroupState extends State<CreateGroup> {
   bool isimageselected = false;
   TextEditingController controller = TextEditingController();
   PostApiProvider api = PostApiProvider();
+  bool isloading = false;
 
   @override
   Widget build(BuildContext context) {
-    controller.addListener((){
-      text=controller.text;
-     
+    controller.addListener(() {
+      text = controller.text;
     });
     return Scaffold(
       appBar: AppBar(
@@ -66,8 +72,7 @@ class CreateGroup extends StatelessWidget {
               isimageselected
                   ? Card2(
                       isfromnetwork: false,
-                      imgurl:
-                          "${picked.path}",
+                      imgurl: "${picked.path}",
                     )
                   : UnselectedCard(),
               SizedBox(
@@ -75,7 +80,6 @@ class CreateGroup extends StatelessWidget {
               ),
               GestureDetector(
                 child: TextField(
-                 
                   controller: controller,
                   onSubmitted: (String text) =>
                       FocusScope.of(context).unfocus(),
@@ -107,7 +111,34 @@ class CreateGroup extends StatelessWidget {
               InkWell(
                 splashColor: Colors.black,
                 borderRadius: BorderRadius.circular(20),
-                onTap: () =>api.uploadImage(picked.path, 2, text, 70.111, 70.111),
+                onTap: () async {
+                  setState(() {
+                    isloading = true;
+                  });
+                  var isuploaded=false;
+                  if(picked==null){
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Resim seçilmedi")));
+                    setState(() {
+                      isloading=false;
+                    });
+                      
+                  }else{
+                    if(controller.text==null || controller.text==''){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bir grup ismi belirleyin")));
+                    }else{
+                      isuploaded = await api.uploadImage(
+                      picked.path, 2, text, 70.111, 70.111);
+                      if(!isloading){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Grup oluşturulamadı")));
+                      }
+                    }
+                  }
+                  if (isuploaded) {
+                    setState(() {
+                      isloading = false;
+                    });
+                  }
+                },
                 child: Container(
                   height: 45,
                   width: double.infinity / 1.5,
@@ -115,11 +146,13 @@ class CreateGroup extends StatelessWidget {
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Center(
-                      child: Text(
-                    "DEVAM ET",
-                    style: TextStyle(fontSize: 23),
-                  )),
+                  child: !isloading
+                      ? Center(
+                          child: Text(
+                          "DEVAM ET",
+                          style: TextStyle(fontSize: 23),
+                        ))
+                      : Center(child: CircularProgressIndicator(color: Colors.white,)),
                 ),
               ),
               SizedBox(
@@ -127,7 +160,7 @@ class CreateGroup extends StatelessWidget {
               ),
               AutoSizeText(
                   "Grup oluşturarak hizmet koşullarını kabul etmiş sayılırız"),
-                  SizedBox(
+              SizedBox(
                 height: 20,
               ),
             ],
@@ -151,7 +184,7 @@ class UnselectedCard extends StatelessWidget {
     return InkWell(
       onTap: () async {
         await _getImage();
-        picked=image;
+        picked = image;
       },
       child: Stack(
         children: [

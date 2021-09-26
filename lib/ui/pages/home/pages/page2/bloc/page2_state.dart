@@ -9,4 +9,15 @@ abstract class Page2State extends Equatable {
 
 class Page2Initial extends Page2State {}
 class Loading extends Page2State {}
-class Fetched extends Page2State {}
+class Page2Fetched extends Page2State {
+  final bool hasreachedmax;
+  final int mockdata;
+  Page2Fetched({this.hasreachedmax,this.mockdata});
+
+  Page2Fetched copyWith({List<Object> posts, bool hasreachedmax}) {
+    return Page2Fetched(
+      hasreachedmax: hasreachedmax ?? this.hasreachedmax,
+      mockdata: mockdata ?? this.mockdata,
+    );
+  }
+}

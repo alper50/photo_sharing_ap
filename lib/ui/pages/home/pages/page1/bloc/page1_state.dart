@@ -9,7 +9,7 @@ abstract class Page1State extends Equatable {
 
 class Page1Initial extends Page1State {}
 
-class LoadingData extends Page1State {}
+class Page1LoadingData extends Page1State {}
 
 class Fetched extends Page1State {
   final List<Object> posts;
