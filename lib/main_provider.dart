@@ -9,6 +9,7 @@ class MainProvider extends ChangeNotifier{
   void setlocale(Locale locale){
     if(!L10n.all.contains(locale)) return;
     _locale=locale;
+    print("adasd");
     notifyListeners();
   }
 }
