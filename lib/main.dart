@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainBloc, MainState>(
+      buildWhen: (pre,cur)=>pre != cur,
       builder: (context, state) {
         return MaterialApp(
           title: 'Flutter Demo',

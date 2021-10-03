@@ -9,7 +9,7 @@ part 'main_event.dart';
 part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
-  MainBloc() : super(MainInitial(selectedLanguage: Localizations.localeOf(context)));
+  MainBloc() : super(MainInitial(selectedLanguage: Locale('en')));
   Locale _locale;
   Locale get locale => _locale;
 
