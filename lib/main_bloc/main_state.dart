@@ -7,14 +7,7 @@ abstract class MainState extends Equatable {
   List<Object> get props => [];
 }
 
-class MainInitial extends MainState {
-   final Locale selectedLanguage;
-
-  MainInitial({this.selectedLanguage});
-
-   @override
-  List<Object> get props => [selectedLanguage];
-}
+class MainInitial extends MainState {}
 class LanguageChanged extends MainState {
   final Locale selectedLanguage;
 
@@ -22,4 +15,13 @@ class LanguageChanged extends MainState {
 
    @override
   List<Object> get props => [selectedLanguage];
+}
+
+class StorageError extends MainState{
+  final String error;
+
+  StorageError({this.error});
+
+   @override
+   List<Object> get props =>[error];
 }

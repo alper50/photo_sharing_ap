@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenlive/core/config/util/l10n/l10n.dart';
 import 'package:greenlive/main_bloc/main_bloc.dart';
 import 'package:greenlive/ui/widgets/appbar4.dart';
-import 'package:provider/src/provider.dart';
 
 class Page4 extends StatelessWidget {
   @override
@@ -140,7 +140,7 @@ class _RadioTileState extends State<RadioTile> {
   @override
   Widget build(BuildContext context) {
     return RadioListTile(
-      selected: selected,
+      selected: widget.e.languageCode==context.read<MainBloc>().locale.languageCode ? true : false,
       value: widget.e.toString(),
       groupValue: 1,
       toggleable: true,
@@ -149,6 +149,10 @@ class _RadioTileState extends State<RadioTile> {
           selected = !selected;
         });
         context.read<MainBloc>().add(ChangeLanguage(selectedLanguage: widget.e));
+        
+
+Navigator.of(context).pop(false);
+
       },
       title: widget.e.languageCode == 'en' ? Text('English') : Text('Türkçe'),
     );

@@ -27,7 +27,7 @@ void main() async {
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
   runApp(BlocProvider(
-    create: (context) => MainBloc(),
+    create: (context) => MainBloc()..add(GetStorageLanguage()),
     child: MyApp(),
   ));
 }

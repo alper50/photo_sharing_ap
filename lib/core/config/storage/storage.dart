@@ -17,6 +17,13 @@ class Storage {
 
     return prefs.setString(key, value);
   }
+  static Future<String> getString(String key) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    bool isExist= prefs.containsKey(key);
+
+    return isExist? prefs.getString(key) : '';
+  }
 
    static Future<List<String>> getStringList(String key) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

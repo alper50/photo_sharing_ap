@@ -15,3 +15,4 @@ class ChangeLanguage extends MainEvent{
    @override
   List<Object> get props => [selectedLanguage];
 }
+class GetStorageLanguage extends MainEvent{}
