@@ -42,11 +42,12 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
         await getData();
         
         if(data.isEmpty){
-          yield FetchError();
+          yield FetchError('Data is empty');
         }
         yield Fetched(posts: data,hasreachedmax: false);
       } catch (e) {
         print(e);
+        yield FetchError(e);
       }
     } else {
       if (state is Fetched) {

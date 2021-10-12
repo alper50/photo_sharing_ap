@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenlive/ui/pages/home/pages/userprofilepage/bloc/userprofile_bloc.dart';
 import 'package:greenlive/ui/widgets/no_connection.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserProfile extends StatelessWidget {
   @override
@@ -92,9 +93,9 @@ class UserProfile extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Üyelik tarihi"),
+                                  Text(AppLocalizations.of(context).memberdate),
                                   SizedBox(height: 10),
-                                  Text("Paylaşım Sayısı"),
+                                  Text(AppLocalizations.of(context).postcount),
                                 ],
                               ),
                             ),
@@ -131,6 +132,8 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
             );
+          }else{
+            return Container();
           }
         },
       ),

@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:greenlive/core/data/models/postmodel.dart';
 import 'package:greenlive/ui/pages/home/pages/page1/bloc/page1_bloc.dart';
-import 'package:greenlive/ui/pages/home/pages/userprofilepage/userprofilepage.dart';
 import 'package:greenlive/ui/widgets/appbar1.dart';
 import 'package:greenlive/ui/widgets/bottom_loader.dart';
 import 'package:greenlive/ui/widgets/card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Page1 extends StatefulWidget {
   @override
@@ -88,19 +88,18 @@ class _Page1State extends State<Page1> {
                           return Container(
                             height: 300,
                             child: Center(
-                              child: Text("Fetch te Bir hata oluştu"),
+                              child: Text("${AppLocalizations.of(context).fetcherror} ->${state.e}"),
                             ),
                           );
                         } else if (state is StorageError) {
                           return Container(
                             height: 300,
                             child: Center(
-                              child: Text("Storage da Bir hata oluştu"),
+                              child: Text(AppLocalizations.of(context).storagerror),
                             ),
                           );
                         } else {
                           Fetched fetched = state as Fetched;
-                          print("FETCHED REBUİLD");
                           return ListView.builder(
                             itemCount: (fetched.hasreachedmax)
                                 ? fetched.posts.length
@@ -108,7 +107,6 @@ class _Page1State extends State<Page1> {
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (BuildContext context, index) {
-                              print("MİKTAR --- ${fetched.posts.length}");
                               if (index < fetched.posts.length) {
                                 final item = fetched.posts[index];
                                 if (item is PostModel) {

@@ -1,4 +1,33 @@
 {
     "home_page" : "ana sayfa",
-    "turkce": "Türkçe"
+    "turkce": "Türkçe",
+    "org": "Organizasyonlar",
+    "search": "Aramak istediğini yaz",
+    "usersettings": "Kullanıcı Ayarları",
+    "logout": "Çıkış Yap",
+    "areyousure": "Çıkış yapmak istediğine emin misin?",
+    "cancel": "Vazgeç",
+    "fetcherror": "Veride bir hata oluştu",
+    "storagerror": "Yerel depolamada bir hata oluştu",
+    "myaccount": "Hesabım",
+    "bills": "Ödemelerim",
+    "myposts": "Paylaşımlarım",
+    "appsettings": "Uygulama Ayarları",
+    "notification": "Bildirimler",
+    "lang": "Uygulama Dili",
+    "chooselang": "Bir dil seçin",
+    "enterdesc": "Bir açıklama gir",
+    "inputerror": "Açıklama boş kalamaz",
+    "hashtagerror": "En az bir kategori seçilmeli",
+    "uploadsucces": "Başarıyla yüklendi",
+    "generalerror": "Bir hata oluştu",
+    "memberdate": "Üyelik Tarihi",
+    "postcount": "Paylaşım Sayısı",
+    "continue": "Devam Et"
+
+
+
+
+
+
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,11 +22,15 @@ import 'package:greenlive/ui/pages/home/pages/userprofilepage/userprofilepage.da
 import 'package:greenlive/ui/pages/splash/splash_view.dart';
 import 'package:greenlive/ui/widgets/themedata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+  }
   runApp(BlocProvider(
     create: (context) => MainBloc()..add(GetStorageLanguage()),
     child: MyApp(),
@@ -36,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainBloc, MainState>(
-      buildWhen: (pre,cur)=>pre != cur,
+      buildWhen: (pre, cur) => pre != cur,
       builder: (context, state) {
         return MaterialApp(
           title: 'Flutter Demo',

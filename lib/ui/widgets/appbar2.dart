@@ -1,13 +1,116 @@
+import 'dart:async';
 import 'dart:ui';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:greenlive/ui/pages/home/pages/page2/bloc/page2_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
-class CustomAppBar2 extends StatelessWidget {
+class CustomAppBar2 extends StatefulWidget {
+  @override
+  State<CustomAppBar2> createState() => _CustomAppBar2State();
+}
+
+class _CustomAppBar2State extends State<CustomAppBar2> {
+  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
+
+  final String _productID = 'CREATE_PROJECT';
+
+  bool _available = true;
+
+  List<ProductDetails> _products = [];
+
+  List<PurchaseDetails> _purchases = [];
+
+  StreamSubscription<List<PurchaseDetails>> _subscription;
   Page2Bloc _bloc;
+
   TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    final Stream<List<PurchaseDetails>> purchaseUpdated =
+        _inAppPurchase.purchaseStream;
+
+    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+      setState(() {
+        _purchases.addAll(purchaseDetailsList);
+        _listenToPurchaseUpdated(purchaseDetailsList);
+      });
+    }, onDone: () {
+      _subscription.cancel();
+    }, onError: (error) {
+      _subscription.cancel();
+    });
+
+    _initialize();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+
+  void _initialize() async {
+    _available = await _inAppPurchase.isAvailable();
+
+    List<ProductDetails> products = await _getProducts(
+      productIds: Set<String>.from(
+        [_productID],
+      ),
+    );
+
+    setState(() {
+      _products = products;
+    });
+  }
+
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
+      switch (purchaseDetails.status) {
+        case PurchaseStatus.pending:
+          //  _showPendingUI();
+          break;
+        case PurchaseStatus.purchased:
+        case PurchaseStatus.restored:
+          // bool valid = await _verifyPurchase(purchaseDetails);
+          // if (!valid) {
+          //   _handleInvalidPurchase(purchaseDetails);
+          // }
+          break;
+        case PurchaseStatus.error:
+          print(purchaseDetails.error);
+          // _handleError(purchaseDetails.error!);
+          break;
+        default:
+          break;
+      }
+
+      if (purchaseDetails.pendingCompletePurchase) {
+        await _inAppPurchase.completePurchase(purchaseDetails);
+      }
+    });
+  }
+
+  Future<List<ProductDetails>> _getProducts({Set<String> productIds}) async {
+    ProductDetailsResponse response =
+        await _inAppPurchase.queryProductDetails(productIds);
+
+    return response.productDetails;
+  }
+
+  void subscribe({ProductDetails product}) {
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+    _inAppPurchase.buyNonConsumable(
+      purchaseParam: purchaseParam,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<Page2Bloc>(context);
@@ -24,7 +127,7 @@ class CustomAppBar2 extends StatelessWidget {
           ),
         ),
       ],
-      title: Text("Organizasyonlar"),
+      title: Text(AppLocalizations.of(context).org),
       centerTitle: true,
       pinned: false,
       floating: false,
@@ -62,7 +165,7 @@ class CustomAppBar2 extends StatelessWidget {
                   Icons.search,
                   color: Colors.black87,
                 ),
-                hintText: "Search you're looking for",
+                hintText: AppLocalizations.of(context).search,
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
               ),
             ),
@@ -71,14 +174,14 @@ class CustomAppBar2 extends StatelessWidget {
       ),
     );
   }
-}
-
-PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
+  PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
     showBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => GestureDetector(
-        onTap: (){print("çalışrtı");},
+        onTap: () {
+          print("çalışrtı");
+        },
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
           child: Container(
@@ -100,8 +203,10 @@ PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
                   Column(
                     children: [
                       InkWell(
-                        onTap: () =>
-                            Navigator.pushNamed(context, "tocreategrouppage"),
+                        onTap: () {
+                          subscribe(product: _products[0]);
+                          Navigator.pushNamed(context, "tocreategrouppage");
+                        },
                         child: Container(
                           height: 36,
                           width: 250,
@@ -111,12 +216,14 @@ PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
                           ),
                           child: Center(
                               child: Text(
-                            "DEVAM ET",
+                            AppLocalizations.of(context).turkce, //TODO localizationdaki continue ile değişcek
                             style: TextStyle(fontSize: 23),
                           )),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       InkWell(
                         onTap: () => Navigator.pop(context),
                         child: Container(
@@ -128,7 +235,7 @@ PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
                           ),
                           child: Center(
                               child: Text(
-                            "İPTAL ET",
+                            AppLocalizations.of(context).cancel,
                             style: TextStyle(fontSize: 23),
                           )),
                         ),
@@ -142,3 +249,6 @@ PersistentBottomSheetController buildShowBottomSheet(BuildContext context) =>
         ),
       ),
     );
+}
+
+

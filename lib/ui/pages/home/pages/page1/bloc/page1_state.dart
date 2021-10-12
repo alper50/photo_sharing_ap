@@ -24,7 +24,13 @@ class Fetched extends Page1State {
   }
 }
 
-class FetchError extends Page1State {}
+class FetchError extends Page1State {
+  final String e;
+
+  FetchError(this.e);
+  @override
+  List<Object> get props => [e];
+}
 
 class StorageError extends Page1State {}
 

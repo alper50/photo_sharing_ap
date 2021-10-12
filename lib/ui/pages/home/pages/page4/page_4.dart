@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenlive/core/config/util/l10n/l10n.dart';
 import 'package:greenlive/main_bloc/main_bloc.dart';
 import 'package:greenlive/ui/widgets/appbar4.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Page4 extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class Page4 extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text("Kullancı Ayarları"),
+                    child: Text(AppLocalizations.of(context).usersettings),
                   ),
                   Card(
                     elevation: 4.0,
@@ -34,7 +35,7 @@ class Page4 extends StatelessWidget {
                             Icons.account_circle_outlined,
                             color: Colors.green,
                           ),
-                          title: Text("Hesabım"),
+                          title: Text(AppLocalizations.of(context).myaccount),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tomyaccount'),
@@ -45,7 +46,7 @@ class Page4 extends StatelessWidget {
                             Icons.receipt_long_outlined,
                             color: Colors.green,
                           ),
-                          title: Text("Faturalandırma"),
+                          title: Text(AppLocalizations.of(context).bills),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tobillspage'),
@@ -56,7 +57,7 @@ class Page4 extends StatelessWidget {
                             Icons.mms_sharp,
                             color: Colors.green,
                           ),
-                          title: Text("Paylaşımlarım"),
+                          title: Text(AppLocalizations.of(context).myposts),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tomypostspage'),
@@ -69,7 +70,7 @@ class Page4 extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text("Uygulama Ayarları"),
+                    child: Text(AppLocalizations.of(context).appsettings),
                   ),
                   Card(
                     elevation: 4.0,
@@ -82,7 +83,7 @@ class Page4 extends StatelessWidget {
                             Icons.notifications,
                             color: Colors.green,
                           ),
-                          title: Text("Bildirimler"),
+                          title: Text(AppLocalizations.of(context).notification),
                           onTap: () {},
                         ),
                         BuildDivider(),
@@ -91,7 +92,7 @@ class Page4 extends StatelessWidget {
                             Icons.language,
                             color: Colors.green,
                           ),
-                          title: Text("Dil"),
+                          title: Text(AppLocalizations.of(context).lang),
                           onTap: () => _chooselang(context),
                         ),
                       ],
@@ -111,7 +112,7 @@ class Page4 extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text("Dil seç"),
+            title: Text(AppLocalizations.of(context).chooselang),
             children: L10n.all
                 .map(
                   (e) => RadioTile(

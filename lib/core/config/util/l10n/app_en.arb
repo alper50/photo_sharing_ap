@@ -4,7 +4,100 @@
         "description":"home_page"
     },
     "turkce" : "Turkish",
-    "@home_page":{
+    "@turkce":{
         "description":"turkish"
+    },
+    "org" : "Organizations",
+    "@org":{
+        "description":"Organizations"
+    },
+    "search" : "Search you're looking for",
+    "@search":{
+        "description":"search"
+    },
+    "usersettings" : "User Settings",
+    "@usersettings":{
+        "description":"usersettings"
+    },
+    "logout" : "Log out",
+    "@logout":{
+        "description":"Logout"
+    },
+    "areyousure" : "Are you sure you want to log out?",
+    "@areyousure":{
+        "description":"areyousure"
+    },
+    "cancel" : "Cancel",
+    "@cancel":{
+        "description":"cancel"
+    },
+    "fetcherror" : "An error occured in fetch",
+    "@fetcherror":{
+        "description":"fetcherror"
+    },
+    "storagerror" : "An error occured in local storage",
+    "@storagerror":{
+        "description":"storagerror"
+    },
+    "myaccount" : "My Account",
+    "@myaccount":{
+        "description":"myaccount"
+    },
+    "bills" : "My Payments",
+    "@bills":{
+        "description":"bills"
+    },
+    "myposts" : "My Posts",
+    "@myposts":{
+        "description":"myposts"
+    },
+    "appsettings" : "Application Settings",
+    "@appsettings":{
+        "description":"appsettings"
+    },
+    "notification" : "Notifications",
+    "@notification":{
+        "description":"notification"
+    },
+    "lang" : "App Language",
+    "@lang":{
+        "description":"lang"
+    },
+    "chooselang" : "Choose Language",
+    "@chooselang":{
+        "description":"chooselang"
+    },
+    "enterdesc" : "Enter a description",
+    "@enterdesc":{
+        "description":"enterdesc"
+    },
+    "inputerror" : "Description can't be empty",
+    "@inputerror":{
+        "description":"inputerror"
+    },
+    "hashtagerror" : "At least one category must be selected",
+    "@hashtagerror":{
+        "description":"hashtagerror"
+    },
+    "uploadsucces" : "Succesfully uploaded",
+    "@uploadsucces":{
+        "description":"uploadsucces"
+    },
+    "generalerror" : "An error occured",
+    "@generalerror":{
+        "description":"generalerror"
+    },
+    "memberdate" : "Membership Date",
+    "@memberdate":{
+        "description":"memberdate"
+    },
+    "postcount" : "Post Count",
+    "@postcount":{
+        "description":"postcount"
+    },
+    "continue" : "Continue",
+    "@continue":{
+        "description":"continue"
     }
+    
 }

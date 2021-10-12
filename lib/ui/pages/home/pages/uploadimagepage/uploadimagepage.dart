@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:greenlive/core/data/network/post_service.dart';
 
@@ -58,7 +58,7 @@ class _UploadPageState extends State<UploadPage> {
                             decoration: InputDecoration(
                               isDense: true,
                               border: InputBorder.none,
-                              hintText: "Bir açıklama girin",
+                              hintText: AppLocalizations.of(context).enterdesc,
                               hintStyle:
                                   TextStyle(color: Colors.grey, fontSize: 15),
                             ),
@@ -105,20 +105,10 @@ class _UploadPageState extends State<UploadPage> {
                 TextButton(
                   onPressed: () async {
                     if (controller.text == "") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: Duration(seconds: 3),
-                          content: Text("Açıklama kısmı boş olamaz"),
-                        ),
-                      );
+                      _showSnackBar(context, AppLocalizations.of(context).inputerror);
                     } else {
                       if (_choiceIndex == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: Duration(seconds: 3),
-                            content: Text("Bir kategori seçilmelidir"),
-                          ),
-                        );
+                        _showSnackBar(context, AppLocalizations.of(context).hashtagerror);
                       } else {
                         setState(() {
                           isloading = !isloading;
@@ -134,19 +124,10 @@ class _UploadPageState extends State<UploadPage> {
                           Navigator.pushNamedAndRemoveUntil(context,
                               'tohomeview', (Route<dynamic> route) => false);
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 3),
-                              content: Text("Başarıyla yüklendi"),
-                            ),
-                          );
+                          _showSnackBar(context, AppLocalizations.of(context).uploadsucces);
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 3),
-                              content: Text("Bir hata oluştu.Tekrar deneyin"),
-                            ),
-                          );
+                          _showSnackBar(
+                              context, AppLocalizations.of(context).generalerror);
                         }
                       }
                     }
@@ -162,6 +143,16 @@ class _UploadPageState extends State<UploadPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
+      BuildContext context, String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text(text),
       ),
     );
   }
