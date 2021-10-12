@@ -4,7 +4,6 @@ import 'package:greenlive/ui/pages/authentication/components/appbar.dart';
 import 'package:greenlive/ui/pages/authentication/components/inputfile.dart';
 import 'package:greenlive/ui/pages/authentication/components/custombutton.dart';
 import 'package:greenlive/ui/pages/authentication/sign_in/bloc/sign_in_bloc.dart';
-import 'package:greenlive/ui/pages/authentication/sign_up/bloc/sign_up_bloc.dart';
 
 class SingInView extends StatelessWidget {
   final TextEditingController nickcontroller = TextEditingController();

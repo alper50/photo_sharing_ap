@@ -7,7 +7,6 @@ import 'package:greenlive/core/config/storage/storage.dart';
 import 'package:greenlive/core/data/models/postmodel.dart';
 import 'package:greenlive/core/data/network/post_service.dart';
 import 'package:greenlive/core/functions/adhelper.dart';
-import 'package:greenlive/ui/pages/home/bloc/homebase_bloc.dart';
 
 part 'page1_event.dart';
 part 'page1_state.dart';

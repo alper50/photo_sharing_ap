@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Storage {
   static Future<bool> getBooleans(String key) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool bl= false;
+    
     return prefs.getBool(key) ?? false;
   }
 
