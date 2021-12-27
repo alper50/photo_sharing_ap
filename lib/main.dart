@@ -22,14 +22,14 @@ import 'package:greenlive/ui/pages/home/pages/userprofilepage/userprofilepage.da
 import 'package:greenlive/ui/pages/splash/splash_view.dart';
 import 'package:greenlive/ui/widgets/themedata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
   if (defaultTargetPlatform == TargetPlatform.android) {
-    InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+    // InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
   }
   runApp(BlocProvider(
     create: (context) => MainBloc()..add(GetStorageLanguage()),
