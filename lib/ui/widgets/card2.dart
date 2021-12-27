@@ -5,8 +5,10 @@ import 'package:transparent_image/transparent_image.dart';
 
 class Card2 extends StatelessWidget {
   final String imgurl;
+  final String groupName;
+  final String groupTitle;
   final bool isfromnetwork;
-  const Card2({Key key, this.imgurl, this.isfromnetwork}) : super(key: key);
+  const Card2({Key key, this.imgurl, this.isfromnetwork, this.groupName, this.groupTitle}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,9 +48,17 @@ class Card2 extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  'Best Design',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      groupName,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    Text(
+                      groupTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
                 ),
               ),
             ),

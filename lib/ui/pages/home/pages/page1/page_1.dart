@@ -32,75 +32,42 @@ class _Page1State extends State<Page1> {
           SliverToBoxAdapter(
             child: Column(
               children: [
-                Container(
-                  height: 50,
-                  width: double.maxFinite * 0.9,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: bloc.categories.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ChoiceChip(
-                          labelStyle: TextStyle(color: Colors.black),
-                          selectedColor: Colors.green,
-                          backgroundColor: Colors.grey[300],
-                          selected: bloc.selectedCategories[index],
-                          onSelected: (bool selected) {
-                            setState(() {
-                              bloc.filterButton(index);
-                            });
-                            bloc.add(
-                                Page1FetchEvent(category: bloc.categories[index]));
-                          },
-                          label: Text(bloc.categories[index]),
-                          elevation: 5,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                _buildCategories(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: RefreshIndicator(
-                    backgroundColor: Colors.green,
-                    color: Colors.white,
-                    onRefresh: () {
-                      return;
-                    },
-                    child: BlocBuilder<Page1Bloc, Page1State>(
-                      builder: (context, state) {
-                        if (state is Page1Initial) {
-                          return Container(
-                              height: 300,
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                color: Colors.red,
-                              )));
-                        } else if (state is Page1LoadingData) {
-                          return Container(
-                              height: 300,
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        } else if (state is FetchError) {
-                          return Container(
-                            height: 300,
-                            child: Center(
-                              child: Text("${AppLocalizations.of(context).fetcherror} ->${state.e}"),
-                            ),
-                          );
-                        } else if (state is StorageError) {
-                          return Container(
-                            height: 300,
-                            child: Center(
-                              child: Text(AppLocalizations.of(context).storagerror),
-                            ),
-                          );
-                        } else {
-                          Fetched fetched = state as Fetched;
-                          return ListView.builder(
+                  child: BlocBuilder<Page1Bloc, Page1State>(
+                    builder: (context, state) {
+                      if (state is Page1Initial) {
+                        return _buildLoading();
+                      } else if (state is Page1LoadingData) {
+                        return _buildLoading();
+                      } else if (state is FetchError) {
+                        return _buildError(context,
+                            "${AppLocalizations.of(context).fetcherror} ->${state.e}");
+                      } else if (state is StorageError) {
+                        return RefreshIndicator(
+                          backgroundColor: Colors.green,
+                          color: Colors.white,
+                          onRefresh: () {
+                            return;
+                          },
+                          child: Stack( //TODO BACKEND GELİNCE REFRESHE BAK
+                            children: [
+                              _buildError(context,
+                                  AppLocalizations.of(context).storagerror),
+                            ],
+                          ),
+                        );
+                      } else {
+                        Fetched fetched = state as Fetched;
+                        return RefreshIndicator(
+                          backgroundColor: Colors.green,
+                          color: Colors.white,
+                          onRefresh: () {
+                            print('refreshed');
+                            return;
+                          },
+                          child: ListView.builder(
                             itemCount: (fetched.hasreachedmax)
                                 ? fetched.posts.length
                                 : fetched.posts.length + 1,
@@ -128,16 +95,79 @@ class _Page1State extends State<Page1> {
                                 return BottomLoader();
                               }
                             },
-                          );
-                        }
-                      },
-                    ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Container _buildLoading() {
+    return Container(
+        height: 300,
+        child: Center(
+            child: CircularProgressIndicator(
+          color: Colors.red,
+        )));
+  }
+
+  Container _buildError(BuildContext context, String error) {
+    return Container(
+      height: 300,
+      child: Center(
+        child: Column(
+          children: [
+            Text(error),
+            SizedBox(
+              height: 10,
+            ),
+            TextButton(
+              onPressed: () {
+                bloc.add(Page1FetchEvent());
+              },
+              child: Text('Tekrar Dene'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildCategories() {
+    return Container(
+      height: 50,
+      width: double.maxFinite * 0.9,
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: bloc.categories.length,
+        itemBuilder: (BuildContext context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ChoiceChip(
+              labelStyle: TextStyle(color: Colors.black),
+              selectedColor: Colors.green,
+              backgroundColor: Colors.grey[300],
+              selected: bloc.selectedCategories[index],
+              onSelected: (bool selected) {
+                setState(() {
+                  bloc.filterButton(index);
+                });
+                bloc.add(Page1FetchEvent(category: bloc.categories[index]));
+              },
+              label: Text(bloc.categories[index]),
+              elevation: 5,
+            ),
+          );
+        },
       ),
     );
   }

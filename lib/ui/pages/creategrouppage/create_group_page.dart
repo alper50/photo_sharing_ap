@@ -170,6 +170,7 @@ class _CreateGroupState extends State<CreateGroup> {
   }
 }
 
+// ignore: must_be_immutable
 class UnselectedCard extends StatelessWidget {
   UnselectedCard({Key key}) : super(key: key);
   XFile image;

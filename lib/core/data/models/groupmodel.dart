@@ -1,15 +1,17 @@
 class GroupModel {
-  // TODO jsona gore group model yapılcak
-  String title;
-  String imgUrl;
+  String groupId;
+  String groupTitle;
+  String groupImageUrl;
   String groupName;
 
-  GroupModel({this.title, this.groupName, this.imgUrl});
+  GroupModel(
+      {this.groupId, this.groupTitle, this.groupName, this.groupImageUrl});
 
   factory GroupModel.fromJson(Map<String, dynamic> json) {
     return GroupModel(
+        groupId: json['groupid'],
         groupName: json['groupName'],
-        title: json['groupTitle'],
-        imgUrl: json['groupImageUrl']);
+        groupTitle: json['groupTitle'],
+        groupImageUrl: json['groupImageUrl']);
   }
 }

@@ -18,27 +18,27 @@ class _Page3State extends State<Page3> {
   PostRepository repo = PostRepository();
   List<MarkerModel> data = [];
   GoogleMapController controller;
-  List<String> storage =[];
+  List<String> storage = [];
   BitmapDescriptor icon;
 
   @override
   void initState() {
     super.initState();
-    initfect();
+    // initfect();
   }
 
-  Future<void> initfect() async {
-     storage = await Storage.getStringList("location");
-    PostApiProvider _repo = PostApiProvider();
-    data = await _repo.getMarkers(71.75590000,42.13650000);
-    print("DATTTTA  $data");
-    if (!data.isNotEmpty) {
-      controller
-          .animateCamera(CameraUpdate.newLatLng(data.first.markerlatlong));
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Orada hiç paylaşım bulamadık"),));
-    }
-  }
+  // Future<void> initfect() async {
+  //    storage = await Storage.getStringList("location");
+  //   PostApiProvider _repo = PostApiProvider();
+  //   data = await _repo.getMarkers(71.75590000,42.13650000);
+  //   print("DATTTTA  $data");
+  //   if (data.isNotEmpty) {
+  //     controller
+  //         .animateCamera(CameraUpdate.newLatLng(data.first.markerlatlong));
+  //   }else{
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Orada hiç paylaşım bulamadık"),));
+  //   }
+  // }
 
   Future<void> requestPermission() async {
     await Permission.location.request();
@@ -79,15 +79,17 @@ class _Page3State extends State<Page3> {
                   myLocationButtonEnabled: true,
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
-                    target: storage.isNotEmpty?  LatLng(double.parse(storage[0]), double.parse(storage[1])): LatLng(12.00000,15.00000),
+                    target: storage.isNotEmpty
+                        ? LatLng(context.read<Page3Bloc>().initialLat,
+                            context.read<Page3Bloc>().initialLong)
+                        : LatLng(12.00000, 15.00000),
                     zoom: 15,
                   ),
-                  onMapCreated: (map) async{
+                  onMapCreated: (map) async {
                     controller = map;
                     await createicon(context);
                   },
-                  markers: createMarker(),
-
+                  markers: createMarker(context),
                 ),
               ),
             );
@@ -97,11 +99,13 @@ class _Page3State extends State<Page3> {
     );
   }
 
-  Set<Marker> createMarker() {
-    return data
+  Set<Marker> createMarker(BuildContext context) {
+    return context
+        .read<Page3Bloc>()
+        .data
         .map(
           (e) => Marker(
-            icon:icon,
+            icon: icon,
             markerId: MarkerId(e.hashCode.toString()),
             position: e.markerlatlong,
             zIndex: 10,
@@ -112,10 +116,12 @@ class _Page3State extends State<Page3> {
         .toSet();
   }
 
-  Future<void> createicon(BuildContext context)async{
-    final ImageConfiguration imageConfiguration = createLocalImageConfiguration(context);
-    var bitmap = await BitmapDescriptor.fromAssetImage(imageConfiguration, 'assets/water.png');
-    icon=bitmap;
+  Future<void> createicon(BuildContext context) async {
+    final ImageConfiguration imageConfiguration =
+        createLocalImageConfiguration(context);
+    var bitmap = await BitmapDescriptor.fromAssetImage(
+        imageConfiguration, 'assets/water.png');
+    icon = bitmap;
     setState(() {});
   }
 }

@@ -5,7 +5,7 @@ import 'package:greenlive/core/data/models/groupmodel.dart';
 
 class GroupApiProvider {
   Dio dio = Dio();
-
+  //TODO GROUP grubun etkileşim oranı(aldığı donate miktarı ve üye sayısı) ve oluşum tarihine göre
   Future<List<GroupModel>> getGroups(int page, int rowperpage) async {
     List<GroupModel> groups = [];
     Response<String> response = await dio.get(
@@ -27,7 +27,7 @@ class GroupApiProvider {
     return groups;
   }
 
-  Future<List<GroupModel>> searchGroup(String text) async {
+  Future<List<GroupModel>> searchGroup({String text}) async {
     List<GroupModel> groups = [];
     Response<String> response = await dio.get(
         "https://5631b8a69656.ngrok.io/green_api/api/group/search_group.php?search=$text");
@@ -44,4 +44,6 @@ class GroupApiProvider {
     }
     return groups;
   }
+
+
 }

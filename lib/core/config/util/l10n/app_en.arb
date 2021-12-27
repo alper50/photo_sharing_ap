@@ -95,7 +95,7 @@
     "@postcount":{
         "description":"postcount"
     },
-    "continue" : "Continue",
+    "continuee" : "Continue",
     "@continue":{
         "description":"continue"
     }

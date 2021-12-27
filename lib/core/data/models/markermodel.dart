@@ -27,8 +27,12 @@ class MarkerModel {
 }
 
 extension MarkerLatLong on MarkerModel {
+  // LatLng get markerlatlong => LatLng(
+  //       double.parse(this.latitude),
+  //       double.parse(this.longitude),
+  //     );
   LatLng get markerlatlong => LatLng(
-        double.parse(this.latitude),
-        double.parse(this.longitude),
+        12.00000,
+        15.00000,
       );
 }

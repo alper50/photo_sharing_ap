@@ -25,7 +25,7 @@ class Fetched extends Page1State {
 }
 
 class FetchError extends Page1State {
-  final String e;
+  final dynamic e;
 
   FetchError(this.e);
   @override
