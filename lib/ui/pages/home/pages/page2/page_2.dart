@@ -9,7 +9,7 @@ import 'package:greenlive/ui/widgets/card2.dart';
 class Page2 extends StatelessWidget {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
-  Page2Bloc bloc;
+  Page2Bloc? bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Page2 extends StatelessWidget {
                   child: RefreshIndicator(
                     onRefresh: () {
                       return;
-                    },
+                    } as Future<void> Function(),
                     child: BlocBuilder<Page2Bloc, Page2State>(
                       builder: (context, state) {
                         if (state is Page2Initial || state is Page2Loading) {
@@ -64,19 +64,19 @@ class Page2 extends StatelessWidget {
   ListView _buildGroups(Page2Fetched fetched) {
     return ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 15),
-        itemCount: fetched.hasreachedmax
-            ? fetched.groups.length
-            : fetched.groups.length + 1,
+        itemCount: fetched.hasreachedmax!
+            ? fetched.groups!.length
+            : fetched.groups!.length + 1,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, index) {
           print(fetched.groups);
-          if (index < fetched.groups.length) {
+          if (index < fetched.groups!.length) {
             return Card2(
               isfromnetwork: true,
-              groupName: fetched.groups[index].groupName,
-              groupTitle: fetched.groups[index].groupTitle,
-              imgurl: fetched.groups[index].groupImageUrl,
+              groupName: fetched.groups![index].groupName,
+              groupTitle: fetched.groups![index].groupTitle,
+              imgurl: fetched.groups![index].groupImageUrl,
             );
           } else {
             return BottomLoader();
@@ -101,7 +101,7 @@ class Page2 extends StatelessWidget {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
       await Future.delayed(Duration(milliseconds: 500), () {
-        bloc.add(Page2FetchEvent());
+        bloc!.add(Page2FetchEvent());
       });
     }
   }
@@ -109,7 +109,7 @@ class Page2 extends StatelessWidget {
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -120,11 +120,11 @@ class LoadingWidget extends StatelessWidget {
 }
 
 class ErrorWidget extends StatelessWidget {
-  final Page2Bloc blocc;
-  final bool isOnlyText;
-  final String text;
+  final Page2Bloc? blocc;
+  final bool? isOnlyText;
+  final String? text;
   const ErrorWidget({
-    Key key,
+    Key? key,
     this.text,
     this.isOnlyText,
     this.blocc,
@@ -134,17 +134,17 @@ class ErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: isOnlyText
-          ? Text(text)
+      child: isOnlyText!
+          ? Text(text!)
           : Column(
               children: [
-                Text(text),
+                Text(text!),
                 SizedBox(
                   height: 10,
                 ),
                 TextButton(
                   onPressed: () {
-                    blocc.add(Page2FetchEvent());
+                    blocc!.add(Page2FetchEvent());
                   },
                   child: Text('Tekrar Dene'),
                 ),

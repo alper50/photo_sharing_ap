@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthAppBar extends StatelessWidget {
-  final String title;
+  final String? title;
 
-  const AuthAppBar({Key key, this.title}) : super(key: key);
+  const AuthAppBar({Key? key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,10 +1,10 @@
 class PostModel {
-  String id;
-  String senderid;
-  String imgurl;
-  String title;
-  String category;
-  String createdtime;
+  String? id;
+  String? senderid;
+  String? imgurl;
+  String? title;
+  String? category;
+  String? createdtime;
 
   PostModel(
       {this.id,

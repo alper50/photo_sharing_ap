@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 class AuthApiProvider {
   Dio dio = Dio();
 
-  Future<bool> signUp(String nick, String mail, String passw,String notifytoken) async {
+  Future<bool> signUp(String nick, String mail, String passw,String? notifytoken) async {
     var params = {
       "nick": "$nick",
       "email": "$mail",

@@ -13,8 +13,8 @@ class GroupApiProvider {
 
     try {
       if (response.statusCode == 200) {
-        if (response.data.isNotEmpty) {
-          List list = json.decode(response.data);
+        if (response.data!.isNotEmpty) {
+          List list = json.decode(response.data!);
           print(list);
           groups =
               list.map((dynamic item) => GroupModel.fromJson(item)).toList();
@@ -27,14 +27,14 @@ class GroupApiProvider {
     return groups;
   }
 
-  Future<List<GroupModel>> searchGroup({String text}) async {
+  Future<List<GroupModel>> searchGroup({String? text}) async {
     List<GroupModel> groups = [];
     Response<String> response = await dio.get(
         "https://5631b8a69656.ngrok.io/green_api/api/group/search_group.php?search=$text");
 
     try {
-      if (response.statusCode == 200 && response.data.isNotEmpty) {
-        List list = json.decode(response.data);
+      if (response.statusCode == 200 && response.data!.isNotEmpty) {
+        List list = json.decode(response.data!);
         print(list);
         groups = list.map((dynamic item) => GroupModel.fromJson(item)).toList();
         return groups;

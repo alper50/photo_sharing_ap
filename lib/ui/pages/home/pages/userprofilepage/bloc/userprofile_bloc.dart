@@ -21,8 +21,8 @@ class UserprofileBloc extends Bloc<UserprofileEvent, UserprofileState> {
      String con = await connection.initConnection();
      if (con == "wifi" || con == "mobile") {
        PostApiProvider provider = PostApiProvider();
-        List<String> data = [];
-        data = await  provider.getUserDetail(event.nickname);
+        List<String>? data = [];
+        data = await  (provider.getUserDetail(event.nickname) as FutureOr<List<String>>);
         yield SuccesFetch(data);
       } else {
         yield ConnectionError();

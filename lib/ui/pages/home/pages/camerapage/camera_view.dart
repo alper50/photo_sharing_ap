@@ -9,10 +9,10 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State {
-  CameraController controller;
-  List cameras;
-  int selectedCameraIndex;
-  String imgPath;
+  CameraController? controller;
+  late List cameras;
+  late int selectedCameraIndex;
+  String? imgPath;
 
   @override
   void initState() {
@@ -36,22 +36,22 @@ class _CameraScreenState extends State {
 
   Future _initCameraController(CameraDescription cameraDescription) async {
     if (controller != null) {
-      await controller.dispose();
+      await controller!.dispose();
     }
     controller = CameraController(cameraDescription, ResolutionPreset.medium);
 
-    controller.addListener(() {
+    controller!.addListener(() {
       if (mounted) {
         setState(() {});
       }
 
-      if (controller.value.hasError) {
-        print('Camera error ${controller.value.errorDescription}');
+      if (controller!.value.hasError) {
+        print('Camera error ${controller!.value.errorDescription}');
       }
     });
 
     try {
-      await controller.initialize();
+      await controller!.initialize();
     } on CameraException catch (e) {
       _showCameraException(e);
     }
@@ -94,7 +94,7 @@ class _CameraScreenState extends State {
 
   /// Display Camera preview.
   Widget _cameraPreviewWidget() {
-    if (controller == null || !controller.value.isInitialized) {
+    if (controller == null || !controller!.value.isInitialized) {
       return const Text(
         'Loading',
         style: TextStyle(
@@ -106,8 +106,8 @@ class _CameraScreenState extends State {
     }
 
     return AspectRatio(
-      aspectRatio: controller.value.aspectRatio,
-      child: CameraPreview(controller),
+      aspectRatio: controller!.value.aspectRatio,
+      child: CameraPreview(controller!),
     );
   }
 
@@ -136,7 +136,7 @@ class _CameraScreenState extends State {
 
   void _onCapturePressed(context) async {
     try {
-      final path = await controller.takePicture();
+      final path = await controller!.takePicture();
 
       Navigator.push(
         context,
@@ -147,12 +147,12 @@ class _CameraScreenState extends State {
         ),
       );
     } catch (e) {
-      _showCameraException(e);
+      _showCameraException(e as CameraException);
     }
   }
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 }

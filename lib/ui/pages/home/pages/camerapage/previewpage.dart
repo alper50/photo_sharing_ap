@@ -6,7 +6,7 @@ import 'package:greenlive/ui/pages/home/pages/uploadimagepage/uploadimagepage.da
 class CamereVieww extends StatelessWidget {
   final imgPath;
 
-  const CamereVieww({Key key, this.imgPath}) : super(key: key);
+  const CamereVieww({Key? key, this.imgPath}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

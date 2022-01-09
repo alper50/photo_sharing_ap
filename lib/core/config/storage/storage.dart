@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {
@@ -17,7 +19,7 @@ class Storage {
 
     return prefs.setString(key, value);
   }
-  static Future<String> getString(String key) async {
+  static Future<String?> getString(String key) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     bool isExist= prefs.containsKey(key);
@@ -43,6 +45,6 @@ class Storage {
   static Future<bool> clear() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     
-    return prefs.clear() ?? false;
+    return (prefs.clear());
   }
 }

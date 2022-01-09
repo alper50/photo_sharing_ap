@@ -17,7 +17,7 @@ class Page1 extends StatefulWidget {
 class _Page1State extends State<Page1> {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
-  Page1Bloc bloc;
+  late Page1Bloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +43,18 @@ class _Page1State extends State<Page1> {
                         return _buildLoading();
                       } else if (state is FetchError) {
                         return _buildError(context,
-                            "${AppLocalizations.of(context).fetcherror} ->${state.e}");
+                            "${AppLocalizations.of(context)!.fetcherror} ->${state.e}");
                       } else if (state is StorageError) {
                         return RefreshIndicator(
                           backgroundColor: Colors.green,
                           color: Colors.white,
                           onRefresh: () {
                             return;
-                          },
+                          } as Future<void> Function(),
                           child: Stack( //TODO BACKEND GELİNCE REFRESHE BAK
                             children: [
                               _buildError(context,
-                                  AppLocalizations.of(context).storagerror),
+                                  AppLocalizations.of(context)!.storagerror),
                             ],
                           ),
                         );
@@ -66,22 +66,22 @@ class _Page1State extends State<Page1> {
                           onRefresh: () {
                             print('refreshed');
                             return;
-                          },
+                          } as Future<void> Function(),
                           child: ListView.builder(
-                            itemCount: (fetched.hasreachedmax)
-                                ? fetched.posts.length
-                                : fetched.posts.length + 1,
+                            itemCount: fetched.hasreachedmax!
+                                ? fetched.posts!.length
+                                : fetched.posts!.length + 1,
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (BuildContext context, index) {
-                              if (index < fetched.posts.length) {
-                                final item = fetched.posts[index];
+                              if (index < fetched.posts!.length) {
+                                final item = fetched.posts![index];
                                 if (item is PostModel) {
                                   return CustomCard(
                                     imgurl: item.imgurl,
                                     sender: item.senderid,
                                     title: item.title,
-                                    category: int.parse(item.category),
+                                    category: int.parse(item.category!),
                                   );
                                 } else {
                                   return Container(

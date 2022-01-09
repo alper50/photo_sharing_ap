@@ -14,10 +14,10 @@ part 'page_3_state.dart';
 
 class Page3Bloc extends Bloc<Page3Event, Page3State> {
   Page3Bloc() : super(Page3Initial());
-  List<MarkerModel> data = [];
+  List<MarkerModel>? data = [];
   List<String> storage =[];
-  double initialLat;
-  double initialLong;
+  double? initialLat;
+  double? initialLong;
   PostApiProvider _repo = PostApiProvider();
   @override
   Stream<Page3State> mapEventToState(

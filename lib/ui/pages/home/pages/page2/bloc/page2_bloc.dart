@@ -27,7 +27,7 @@ class Page2Bloc extends Bloc<Page2Event, Page2State> {
           yield Page2Error(error: 'Grup bulunamadı');
         } else {
           page++;
-          yield Page2Fetched(hasreachedmax: false, groups: groups);
+          yield Page2Fetched(hasreachedmax: false, groups: groups as List<GroupModel>?);
         }
       } catch (e) {
          if(e is DioError){
@@ -41,7 +41,7 @@ class Page2Bloc extends Bloc<Page2Event, Page2State> {
         yield Page2Loading();
         try {
           await getGroups();
-          yield Page2Fetched(groups: groups, hasreachedmax: false);
+          yield Page2Fetched(groups: groups as List<GroupModel>?, hasreachedmax: false);
         } catch (e) {
           if(e is DioError){
             yield Page2Error(error: 'DİO error');

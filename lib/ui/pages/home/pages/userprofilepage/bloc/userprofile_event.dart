@@ -4,14 +4,14 @@ abstract class UserprofileEvent extends Equatable {
   const UserprofileEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class InitialEvent extends UserprofileEvent{
-  final String nickname;
+  final String? nickname;
 
   InitialEvent(this.nickname);
 
     @override
-  List<Object> get props => [nickname];
+  List<Object?> get props => [nickname];
 }

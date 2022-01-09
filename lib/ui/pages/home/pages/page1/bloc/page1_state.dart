@@ -12,11 +12,11 @@ class Page1Initial extends Page1State {}
 class Page1LoadingData extends Page1State {}
 
 class Fetched extends Page1State {
-  final List<Object> posts;
-  final bool hasreachedmax;
+  final List<Object>? posts;
+  final bool? hasreachedmax;
   Fetched({this.posts, this.hasreachedmax});
 
-  Fetched copyWith({List<Object> posts, bool hasreachedmax}) {
+  Fetched copyWith({List<Object>? posts, bool? hasreachedmax}) {
     return Fetched(
       posts: posts ?? this.posts,
       hasreachedmax: hasreachedmax ?? this.hasreachedmax,

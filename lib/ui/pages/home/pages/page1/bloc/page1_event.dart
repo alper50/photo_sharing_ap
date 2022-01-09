@@ -4,14 +4,14 @@ abstract class Page1Event extends Equatable {
   const Page1Event();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 class InitialEvent extends Page1Event{}
 class Page1FetchEvent extends Page1Event{
-  final String category;
+  final String? category;
 
   Page1FetchEvent({this.category});
-  List<Object> get props => [category];
+  List<Object?> get props => [category];
 }
 class FilterEvent extends Page1Event{
   final String category;

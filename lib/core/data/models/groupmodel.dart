@@ -1,8 +1,8 @@
 class GroupModel {
-  String groupId;
-  String groupTitle;
-  String groupImageUrl;
-  String groupName;
+  String? groupId;
+  String? groupTitle;
+  String? groupImageUrl;
+  String? groupName;
 
   GroupModel(
       {this.groupId, this.groupTitle, this.groupName, this.groupImageUrl});

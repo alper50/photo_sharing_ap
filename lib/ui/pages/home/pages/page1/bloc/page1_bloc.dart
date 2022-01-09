@@ -83,7 +83,7 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
             data.addAll(temporary);
           }
           yield DummyState();
-          yield Fetched(posts: fetched.posts + temporary, hasreachedmax: false);
+          yield Fetched(posts: fetched.posts! + temporary, hasreachedmax: false);
         } catch (e) {
           print(e);
         }
@@ -96,7 +96,7 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
     }
   }
 
-  Future<List<Object>> getData() async {
+  Future<List<Object>?> getData() async {
     List<Object> temporary = [];
     List<PostModel> posts = [];
 

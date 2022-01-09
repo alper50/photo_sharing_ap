@@ -2,7 +2,7 @@ import 'package:connectivity/connectivity.dart';
 
 class CheckConnection{
   final Connectivity _connectivity = Connectivity();
-  ConnectivityResult result;
+  ConnectivityResult? result;
   String _connectionStatus = "";
 
   Future<String> initConnection() async {
@@ -15,7 +15,7 @@ class CheckConnection{
     return _connectionStatus;
   }
 
-  Future<void> updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> updateConnectionStatus(ConnectivityResult? result) async {
     switch (result) {
       case ConnectivityResult.wifi:
          _connectionStatus = "wifi";

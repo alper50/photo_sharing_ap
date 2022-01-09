@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Appbar1 extends StatelessWidget {
-  const Appbar1({ Key key }) : super(key: key);
+  const Appbar1({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
             automaticallyImplyLeading: false,
-            title: Text(AppLocalizations.of(context).home_page),
+            title: Text(AppLocalizations.of(context)!.home_page),
             collapsedHeight: 70,
             toolbarHeight: 70,
             centerTitle: true,

@@ -19,7 +19,7 @@ class PostRepository{
     return temp;
   }
 
-  Future<List<MarkerModel>> getmarker(double lang,double long){
+  Future<List<MarkerModel>?> getmarker(double lang,double long){
     return provider.getMarkers(lang, long);
   }
 }

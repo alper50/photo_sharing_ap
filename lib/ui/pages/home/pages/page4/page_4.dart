@@ -21,7 +21,7 @@ class Page4 extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(AppLocalizations.of(context).usersettings),
+                    child: Text(AppLocalizations.of(context)!.usersettings),
                   ),
                   Card(
                     elevation: 4.0,
@@ -35,7 +35,7 @@ class Page4 extends StatelessWidget {
                             Icons.account_circle_outlined,
                             color: Colors.green,
                           ),
-                          title: Text(AppLocalizations.of(context).myaccount),
+                          title: Text(AppLocalizations.of(context)!.myaccount),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tomyaccount'),
@@ -46,7 +46,7 @@ class Page4 extends StatelessWidget {
                             Icons.receipt_long_outlined,
                             color: Colors.green,
                           ),
-                          title: Text(AppLocalizations.of(context).bills),
+                          title: Text(AppLocalizations.of(context)!.bills),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tobillspage'),
@@ -57,7 +57,7 @@ class Page4 extends StatelessWidget {
                             Icons.mms_sharp,
                             color: Colors.green,
                           ),
-                          title: Text(AppLocalizations.of(context).myposts),
+                          title: Text(AppLocalizations.of(context)!.myposts),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           onTap: () =>
                               Navigator.pushNamed(context, 'tomypostspage'),
@@ -70,7 +70,7 @@ class Page4 extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(AppLocalizations.of(context).appsettings),
+                    child: Text(AppLocalizations.of(context)!.appsettings),
                   ),
                   Card(
                     elevation: 4.0,
@@ -83,7 +83,7 @@ class Page4 extends StatelessWidget {
                             Icons.notifications,
                             color: Colors.green,
                           ),
-                          title: Text(AppLocalizations.of(context).notification),
+                          title: Text(AppLocalizations.of(context)!.notification),
                           onTap: () {},
                         ),
                         BuildDivider(),
@@ -92,7 +92,7 @@ class Page4 extends StatelessWidget {
                             Icons.language,
                             color: Colors.green,
                           ),
-                          title: Text(AppLocalizations.of(context).lang),
+                          title: Text(AppLocalizations.of(context)!.lang),
                           onTap: () => _chooselang(context),
                         ),
                       ],
@@ -112,7 +112,7 @@ class Page4 extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text(AppLocalizations.of(context).chooselang),
+            title: Text(AppLocalizations.of(context)!.chooselang),
             children: L10n.all
                 .map(
                   (e) => RadioTile(
@@ -127,9 +127,9 @@ class Page4 extends StatelessWidget {
 }
 
 class RadioTile extends StatefulWidget {
-  final Locale e;
-  final BuildContext context;
-  RadioTile({Key key, this.e, this.context}) : super(key: key);
+  final Locale? e;
+  final BuildContext? context;
+  RadioTile({Key? key, this.e, this.context}) : super(key: key);
 
   @override
   State<RadioTile> createState() => _RadioTileState();
@@ -141,11 +141,11 @@ class _RadioTileState extends State<RadioTile> {
   @override
   Widget build(BuildContext context) {
     return RadioListTile(
-      selected: widget.e.languageCode==context.read<MainBloc>().locale.languageCode ? true : false,
+      selected: widget.e!.languageCode==context.read<MainBloc>().locale!.languageCode ? true : false,
       value: widget.e.toString(),
       groupValue: 1,
       toggleable: true,
-      onChanged: (data) {
+      onChanged: (dynamic data) {
         setState(() {
           selected = !selected;
         });
@@ -155,7 +155,7 @@ class _RadioTileState extends State<RadioTile> {
 Navigator.of(context).pop(false);
 
       },
-      title: widget.e.languageCode == 'en' ? Text('English') : Text('Türkçe'),
+      title: widget.e!.languageCode == 'en' ? Text('English') : Text('Türkçe'),
     );
   }
 }

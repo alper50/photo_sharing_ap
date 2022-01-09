@@ -5,7 +5,7 @@ import 'package:greenlive/ui/widgets/card2.dart';
 import 'package:image_picker/image_picker.dart';
 
 String text = '';
-XFile picked;
+XFile? picked;
 
 class CreateGroup extends StatefulWidget {
   @override
@@ -71,7 +71,7 @@ class _CreateGroupState extends State<CreateGroup> {
               isimageselected
                   ? Card2(
                       isfromnetwork: false,
-                      imgurl: "${picked.path}",
+                      imgurl: "${picked!.path}",
                     )
                   : UnselectedCard(),
               SizedBox(
@@ -126,7 +126,7 @@ class _CreateGroupState extends State<CreateGroup> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bir grup ismi belirleyin")));
                     }else{
                       isuploaded = await api.uploadImage(
-                      picked.path, 2, text, 70.111, 70.111);
+                      picked!.path, 2, text, 70.111, 70.111);
                       if(!isloading){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Grup oluşturulamadı")));
                       }
@@ -172,8 +172,8 @@ class _CreateGroupState extends State<CreateGroup> {
 
 // ignore: must_be_immutable
 class UnselectedCard extends StatelessWidget {
-  UnselectedCard({Key key}) : super(key: key);
-  XFile image;
+  UnselectedCard({Key? key}) : super(key: key);
+  XFile? image;
   _getImage() async {
     image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, maxHeight: 480, maxWidth: 640);

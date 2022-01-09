@@ -4,15 +4,15 @@ abstract class MainEvent extends Equatable {
   const MainEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ChangeLanguage extends MainEvent{
-  final Locale selectedLanguage;
+  final Locale? selectedLanguage;
 
   ChangeLanguage({this.selectedLanguage});
 
    @override
-  List<Object> get props => [selectedLanguage];
+  List<Object?> get props => [selectedLanguage];
 }
 class GetStorageLanguage extends MainEvent{}

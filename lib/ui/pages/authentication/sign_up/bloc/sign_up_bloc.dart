@@ -15,9 +15,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   AuthRepository authrepo = AuthRepository();
   bool issignup =false;
   bool islocationbuttonpressed = false;
-  Position location;
+  late Position location;
   TokenHelper tokenHelper = TokenHelper();
-  String token;
+  String? token;
   AuthRepository provider = AuthRepository();
   SignUpBloc() : super(SignUpInitial());
 

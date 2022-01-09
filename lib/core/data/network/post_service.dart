@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -8,7 +9,7 @@ class PostApiProvider {
   Dio dio = Dio();
   String url = "https://66303722f6a5.ngrok.io";
   
-  Future<bool> uploadImage(String file, int category, String title, double latitude, double longitude) async {
+  Future<bool> uploadImage(String file, int? category, String title, double latitude, double longitude) async {
     final uri = Uri.parse("https://66303722f6a5.ngrok.io/green_api/api/post/upload_post.php");
     var request = http.MultipartRequest("POST",uri);
     request.fields["latitude"] = "$latitude";
@@ -46,8 +47,8 @@ class PostApiProvider {
 
     try {
       if (response.statusCode == 200) {
-        if (response.data.isNotEmpty) {
-          List list = json.decode(response.data);
+        if (response.data!.isNotEmpty) {
+          List list = json.decode(response.data!);
           print(list);
           posts = list.map((dynamic item) => PostModel.fromJson(item)).toList();
           return posts;
@@ -59,32 +60,32 @@ class PostApiProvider {
     return posts;
   }
 
-  Future<List<String>> getUserDetail(String nickname) async {
-    List list = [];
+  Future<List<String>?> getUserDetail(String? nickname) async {
+    List? list = [];
     Response<String> response = await dio.get(
         "https://1ae2e61b7db6.ngrok.io/green_api/api/post/get_posts.php?userid=$nickname");
 
     try {
       if (response.statusCode == 200) {
-        if (response.data.isNotEmpty) {
-          list = json.decode(response.data);
-          return list;
+        if (response.data!.isNotEmpty) {
+          list = json.decode(response.data!);
+          return list as FutureOr<List<String>?>;
         }
       }
     } catch (e) {
       print("hata  $e");
     }
-    return list;
+    return list as FutureOr<List<String>?>;
   }
 
   // ignore: missing_return
-  Future<List<MarkerModel>> getMarkers(double lang, double long) async {
+  Future<List<MarkerModel>?> getMarkers(double? lang, double? long) async {
     List<MarkerModel> markers = [];
     Response<String> response =
         await dio.get("https://5631b8a69656.ngrok.io/green_api/api/post/get_markers.php?longitude=$long&latitude=$lang");
     try {
       if (response.statusCode == 200) {
-        List list = jsonDecode(response.data);
+        List list = jsonDecode(response.data!);
         print(response.data);
         markers= list.map((dynamic item) => MarkerModel.fromJson(item)).toList();
         print("geldi  $markers");

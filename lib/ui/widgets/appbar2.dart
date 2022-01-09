@@ -24,8 +24,8 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
 
   List<PurchaseDetails> _purchases = [];
 
-  StreamSubscription<List<PurchaseDetails>> _subscription;
-  Page2Bloc _bloc;
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+  late Page2Bloc _bloc;
 
   TextEditingController _controller = TextEditingController();
 
@@ -97,14 +97,14 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
     });
   }
 
-  Future<List<ProductDetails>> _getProducts({Set<String> productIds}) async {
+  Future<List<ProductDetails>> _getProducts({required Set<String> productIds}) async {
     ProductDetailsResponse response =
         await _inAppPurchase.queryProductDetails(productIds);
 
     return response.productDetails;
   }
 
-  void subscribe({ProductDetails product}) {
+  void subscribe({required ProductDetails product}) {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
     _inAppPurchase.buyNonConsumable(
       purchaseParam: purchaseParam,
@@ -127,7 +127,7 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
           ),
         ),
       ],
-      title: Text(AppLocalizations.of(context).org),
+      title: Text(AppLocalizations.of(context)!.org),
       centerTitle: true,
       pinned: false,
       floating: false,
@@ -165,7 +165,7 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
                   Icons.search,
                   color: Colors.black87,
                 ),
-                hintText: AppLocalizations.of(context).search,
+                hintText: AppLocalizations.of(context)!.search,
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
               ),
             ),
@@ -216,7 +216,7 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
                           ),
                           child: Center(
                               child: Text(
-                            AppLocalizations.of(context).turkce, //TODO localizationdaki continue ile değişcek
+                            AppLocalizations.of(context)!.turkce, //TODO localizationdaki continue ile değişcek
                             style: TextStyle(fontSize: 23),
                           )),
                         ),
@@ -235,7 +235,7 @@ class _CustomAppBar2State extends State<CustomAppBar2> {
                           ),
                           child: Center(
                               child: Text(
-                            AppLocalizations.of(context).cancel,
+                            AppLocalizations.of(context)!.cancel,
                             style: TextStyle(fontSize: 23),
                           )),
                         ),

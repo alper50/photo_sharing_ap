@@ -12,21 +12,21 @@ part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc() : super(LanguageChanged(selectedLanguage: Locale('en')));
-  Locale _locale = Locale('en');
-  Locale get locale => _locale;
+  Locale? _locale = Locale('en');
+  Locale? get locale => _locale;
 
-  void setlocale(Locale locale){
+  void setlocale(Locale? locale){
     if(!L10n.all.contains(locale)) return;
     _locale=locale;
   }
-  Future<String> getStorageLocale()async{
-    String localeLanguage = await Storage.getString('language');
+  Future<String?> getStorageLocale()async{
+    String? localeLanguage = await Storage.getString('language');
     return localeLanguage;
   }
   @override
   Stream<MainState> mapEventToState(MainEvent event) async*{
     if(event is GetStorageLanguage){
-      String localLanguage = await getStorageLocale();
+      String? localLanguage = await getStorageLocale();
       if(localLanguage==''){
         yield LanguageChanged(selectedLanguage: Locale('en')); 
       }else{
@@ -35,7 +35,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     }
     if(event is ChangeLanguage){
       setlocale(event.selectedLanguage);
-      Storage.setString('language', '${event.selectedLanguage.languageCode}');
+      Storage.setString('language', '${event.selectedLanguage!.languageCode}');
       yield LanguageChanged(selectedLanguage: _locale);
     }
   }

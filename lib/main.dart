@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter Demo',
           theme: AppTheme.lightheme,
-          locale: state.props.first,
+          locale: state.props.first as Locale?,
           supportedLocales: L10n.all,
           localizationsDelegates: [
             AppLocalizations.delegate,
@@ -94,20 +94,22 @@ class MyApp extends StatelessWidget {
                 return _createRoute(Container());
             }
           },
-          routes: {
-            "tosignview": (context) => SignView(),
-            "tosigninview": (context) => SingInView(),
-            "tosignupview": (context) => SingUpView(),
-            "tohome": (context) => HomeView(),
-            "tocamera": (context) => CameraScreen(),
-            "touploadposts": (context) => UploadPage(),
-            "tocreategrouppage": (context) => CreateGroup(),
-          },
+          routes: appRoutes,
           home: Splash(),
         );
       },
     );
   }
+
+  Map<String, Widget Function(BuildContext)> appRoutes = {
+    "tosignview": (context) => SignView(),
+    "tosigninview": (context) => SingInView(),
+    "tosignupview": (context) => SingUpView(),
+    "tohome": (context) => HomeView(),
+    "tocamera": (context) => CameraScreen(),
+    "touploadposts": (context) => UploadPage(),
+    "tocreategrouppage": (context) => CreateGroup(),
+  };
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(

@@ -7,7 +7,7 @@ import 'package:lottie/lottie.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
   
-  print('background message ${message.notification.body}');
+  print('background message ${message.notification!.body}');
 }
 class Splash extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  bool islogged;
+  late bool islogged;
   @override
   void initState(){
     super.initState();

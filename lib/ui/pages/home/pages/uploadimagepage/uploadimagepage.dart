@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:greenlive/core/data/network/post_service.dart';
 
 class UploadPage extends StatefulWidget {
-  final String imagepath;
+  final String? imagepath;
 
-  UploadPage({Key key, this.imagepath}) : super(key: key);
+  UploadPage({Key? key, this.imagepath}) : super(key: key);
 
   @override
   _UploadPageState createState() => _UploadPageState();
 }
 
 class _UploadPageState extends State<UploadPage> {
-  int _choiceIndex;
+  int? _choiceIndex;
   PostApiProvider api = PostApiProvider();
   List<String> _choices = ["Air Pollution", "Water Pollution", "Plastic Warm"];
   TextEditingController controller = TextEditingController();
@@ -34,7 +34,7 @@ class _UploadPageState extends State<UploadPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.file(
-                      File(widget.imagepath),
+                      File(widget.imagepath!),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -58,7 +58,7 @@ class _UploadPageState extends State<UploadPage> {
                             decoration: InputDecoration(
                               isDense: true,
                               border: InputBorder.none,
-                              hintText: AppLocalizations.of(context).enterdesc,
+                              hintText: AppLocalizations.of(context)!.enterdesc,
                               hintStyle:
                                   TextStyle(color: Colors.grey, fontSize: 15),
                             ),
@@ -105,16 +105,16 @@ class _UploadPageState extends State<UploadPage> {
                 TextButton(
                   onPressed: () async {
                     if (controller.text == "") {
-                      _showSnackBar(context, AppLocalizations.of(context).inputerror);
+                      _showSnackBar(context, AppLocalizations.of(context)!.inputerror);
                     } else {
                       if (_choiceIndex == null) {
-                        _showSnackBar(context, AppLocalizations.of(context).hashtagerror);
+                        _showSnackBar(context, AppLocalizations.of(context)!.hashtagerror);
                       } else {
                         setState(() {
                           isloading = !isloading;
                         });
 
-                        bool response = await api.uploadImage(widget.imagepath,
+                        bool response = await api.uploadImage(widget.imagepath!,
                             _choiceIndex, controller.text, 25.00, 32.00);
                         print(response);
                         setState(() {
@@ -124,10 +124,10 @@ class _UploadPageState extends State<UploadPage> {
                           Navigator.pushNamedAndRemoveUntil(context,
                               'tohomeview', (Route<dynamic> route) => false);
 
-                          _showSnackBar(context, AppLocalizations.of(context).uploadsucces);
+                          _showSnackBar(context, AppLocalizations.of(context)!.uploadsucces);
                         } else {
                           _showSnackBar(
-                              context, AppLocalizations.of(context).generalerror);
+                              context, AppLocalizations.of(context)!.generalerror);
                         }
                       }
                     }

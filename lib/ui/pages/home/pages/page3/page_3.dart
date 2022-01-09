@@ -17,9 +17,9 @@ class Page3 extends StatefulWidget {
 class _Page3State extends State<Page3> {
   PostRepository repo = PostRepository();
   List<MarkerModel> data = [];
-  GoogleMapController controller;
+  GoogleMapController? controller;
   List<String> storage = [];
-  BitmapDescriptor icon;
+  late BitmapDescriptor icon;
 
   @override
   void initState() {
@@ -80,8 +80,8 @@ class _Page3State extends State<Page3> {
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: storage.isNotEmpty
-                        ? LatLng(context.read<Page3Bloc>().initialLat,
-                            context.read<Page3Bloc>().initialLong)
+                        ? LatLng(context.read<Page3Bloc>().initialLat!,
+                            context.read<Page3Bloc>().initialLong!)
                         : LatLng(12.00000, 15.00000),
                     zoom: 15,
                   ),
@@ -102,7 +102,7 @@ class _Page3State extends State<Page3> {
   Set<Marker> createMarker(BuildContext context) {
     return context
         .read<Page3Bloc>()
-        .data
+        .data!
         .map(
           (e) => Marker(
             icon: icon,

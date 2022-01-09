@@ -85,7 +85,7 @@ class BuildScaffold extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        backgroundColor: Colors.grey[400].withOpacity(0.8),
+                        backgroundColor: Colors.grey[400]!.withOpacity(0.8),
                         primary: Colors.black45,
                       ),
                       onPressed: () {

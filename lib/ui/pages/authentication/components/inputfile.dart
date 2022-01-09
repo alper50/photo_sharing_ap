@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:greenlive/ui/pages/authentication/components/custombutton.dart';
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final IconData icon;
-  final ValueChanged<String> onChanged;
-  final bool ispasw;
-  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
+  final bool? ispasw;
+  final TextEditingController? controller;
   const RoundedInputField({
-    Key key,
+    Key? key,
     this.hintText,
     this.icon = Icons.person,
     this.onChanged,
@@ -21,7 +21,7 @@ class RoundedInputField extends StatelessWidget {
       child: TextField(
         textInputAction: TextInputAction.done,
         controller: controller,
-        obscureText: ispasw?true:false,
+        obscureText: ispasw!?true:false,
         onChanged: onChanged,
         cursorColor: Colors.green,
         decoration: InputDecoration(

@@ -1,10 +1,10 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MarkerModel {
-  String id;
-  String category;
-  String latitude;
-  String longitude;
+  String? id;
+  String? category;
+  String? latitude;
+  String? longitude;
 
   MarkerModel({this.id, this.category, this.latitude, this.longitude});
 

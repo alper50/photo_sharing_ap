@@ -7,10 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map?;
     return BlocProvider(
       create: (context) =>
-          UserprofileBloc()..add(InitialEvent(arguments["nickname"])),
+          UserprofileBloc()..add(InitialEvent(arguments!["nickname"])),
       child: BlocBuilder<UserprofileBloc, UserprofileState>(
         builder: (context, state) {
           if (state is Loading) {
@@ -93,9 +93,9 @@ class UserProfile extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(AppLocalizations.of(context).memberdate),
+                                  Text(AppLocalizations.of(context)!.memberdate),
                                   SizedBox(height: 10),
-                                  Text(AppLocalizations.of(context).postcount),
+                                  Text(AppLocalizations.of(context)!.postcount),
                                 ],
                               ),
                             ),
@@ -115,7 +115,7 @@ class UserProfile extends StatelessWidget {
                       ),
                     ),
                     ListView.builder(
-                        itemCount: state.data.length, // TODO burası ayarlancak
+                        itemCount: state.data!.length, // TODO burası ayarlancak
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {

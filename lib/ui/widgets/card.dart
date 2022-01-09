@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CustomCard extends StatelessWidget {
-  final String imgurl;
-  final String title;
-  final String sender;
-  final int category;
+  final String? imgurl;
+  final String? title;
+  final String? sender;
+  final int? category;
 
   const CustomCard(
-      {Key key, this.imgurl, this.title, this.sender, this.category})
+      {Key? key, this.imgurl, this.title, this.sender, this.category})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CustomCard extends StatelessWidget {
             ? Colors.blue.withOpacity(0.5)
             : (category == 1
                 ? Colors.green.withOpacity(0.5)
-                : (category == 2 ? Colors.brown[300].withOpacity(0.5) : Colors.grey.withOpacity(0.5))),
+                : (category == 2 ? Colors.brown[300]!.withOpacity(0.5) : Colors.grey.withOpacity(0.5))),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -40,7 +40,7 @@ class CustomCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: FadeInImage.memoryNetwork(
-                    image: imgurl,
+                    image: imgurl!,
                     placeholder: kTransparentImage,
                     fit: BoxFit.cover,
                   ),
@@ -51,7 +51,7 @@ class CustomCard extends StatelessWidget {
                 child: Row(
                   children: [
                     TextButton(
-                      child: Text(sender),
+                      child: Text(sender!),
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
@@ -65,7 +65,7 @@ class CustomCard extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(title),
+                          Text(title!),
                           Text("konum bilgisi"),
                         ],
                       ),
@@ -81,7 +81,7 @@ class CustomCard extends StatelessWidget {
   }
 
   PersistentBottomSheetController buildShowBottomSheet(
-          BuildContext context, int category) =>
+          BuildContext context, int? category) =>
       showBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -120,13 +120,13 @@ class CustomCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: FadeInImage.memoryNetwork(
-                          image: imgurl,
+                          image: imgurl!,
                           placeholder: kTransparentImage,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Text(title),
+                    Text(title!),
                   ],
                 ),
               ],

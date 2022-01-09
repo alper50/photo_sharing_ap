@@ -5,9 +5,9 @@ import 'package:greenlive/ui/pages/home/bloc/homebase_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 class NoConnection extends StatelessWidget {
-  final bool blockname;
+  final bool? blockname;
 
-  const NoConnection({Key key, this.blockname}) : super(key: key);
+  const NoConnection({Key? key, this.blockname}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class NoConnection extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    if(blockname){
+                    if(blockname!){
                        BlocProvider.of<HomebaseBloc>(context)
                         .add(RefreshConnectionEvent());
                     }
