@@ -32,7 +32,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         try {
           provider.signUp(event.nick, event.email, event.password, token);
         } catch (e) {
-          print("${e.toString()}");
+          print(e.toString());
           yield SignUpError();
         }
       }

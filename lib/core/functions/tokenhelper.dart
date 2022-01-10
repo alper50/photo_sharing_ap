@@ -15,7 +15,7 @@ class TokenHelper{
       messaging.getToken().then((value)async{
         token = value;
         print("TOKEN:"+ value!);
-        await Storage.setString("fcmtoken", "$value");
+        await Storage.setString("fcmtoken", value);
     });
     }
     return token;

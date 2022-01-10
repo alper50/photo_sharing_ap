@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
                 return _createRoute(
                   UserProfile(),
                 );
-                break;
               case 'togrouppage':
                 return _createRoute(
                   BlocProvider(
@@ -69,27 +68,22 @@ class MyApp extends StatelessWidget {
                     child: GroupPage(),
                   ),
                 );
-                break;
               case 'tohomeview':
                 return _createRoute(
                   HomeView(),
                 );
-                break;
               case 'tobillspage':
                 return _createRoute(
                   BillsPage(),
                 );
-                break;
               case 'tomyaccount':
                 return _createRoute(
                   MyAccount(),
                 );
-                break;
               case 'tomypostspage':
                 return _createRoute(
                   MyPostsPage(),
                 );
-                break;
               default:
                 return _createRoute(Container());
             }

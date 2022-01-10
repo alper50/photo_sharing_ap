@@ -71,7 +71,7 @@ class _CreateGroupState extends State<CreateGroup> {
               isimageselected
                   ? Card2(
                       isfromnetwork: false,
-                      imgurl: "${picked!.path}",
+                      imgurl: picked!.path,
                     )
                   : UnselectedCard(),
               SizedBox(
@@ -122,7 +122,7 @@ class _CreateGroupState extends State<CreateGroup> {
                     });
                       
                   }else{
-                    if(controller.text==null || controller.text==''){
+                    if(controller.text==''){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bir grup ismi belirleyin")));
                     }else{
                       isuploaded = await api.uploadImage(

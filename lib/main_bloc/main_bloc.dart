@@ -35,7 +35,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     }
     if(event is ChangeLanguage){
       setlocale(event.selectedLanguage);
-      Storage.setString('language', '${event.selectedLanguage!.languageCode}');
+      Storage.setString('language', event.selectedLanguage!.languageCode);
       yield LanguageChanged(selectedLanguage: _locale);
     }
   }

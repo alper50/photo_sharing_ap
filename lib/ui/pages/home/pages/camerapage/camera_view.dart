@@ -1,5 +1,4 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:greenlive/ui/pages/home/pages/camerapage/previewpage.dart';
 
@@ -20,7 +19,7 @@ class _CameraScreenState extends State {
     availableCameras().then((availableCameras) {
       cameras = availableCameras;
 
-      if (cameras.length > 0) {
+      if (cameras.isNotEmpty) {
         setState(() {
           selectedCameraIndex = 0;
         });

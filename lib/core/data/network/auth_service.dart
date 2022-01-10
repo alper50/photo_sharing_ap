@@ -7,9 +7,9 @@ class AuthApiProvider {
 
   Future<bool> signUp(String nick, String mail, String passw,String? notifytoken) async {
     var params = {
-      "nick": "$nick",
-      "email": "$mail",
-      "password": "$passw",
+      "nick": nick,
+      "email": mail,
+      "password": passw,
       "notifytoken": "$notifytoken",
     };
     String url =

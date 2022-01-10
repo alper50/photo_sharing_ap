@@ -21,7 +21,6 @@ class AppTheme {
     ),
     fontFamily: "Asap",
     brightness: Brightness.light,
-    accentColor: Colors.greenAccent,
     cardTheme: CardTheme(
       elevation: 3.0,
       shadowColor: Colors.grey[50],
